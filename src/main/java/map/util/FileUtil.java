@@ -48,14 +48,15 @@ public class FileUtil {
         return ad;
     }
 
-    public static List<AD> exportItem(String phoneNumber, String password, List<AD> ad) throws IOException, ClassNotFoundException {
+    public static List<AD> getItem(String phoneNumber, String password, List<AD> ad) throws IOException, ClassNotFoundException {
         ObjectInputStream obj=new ObjectInputStream(new FileInputStream(AD_LIST_PATH));
         Object object = obj.readObject();
+        List<AD> ads=new ArrayList<>();
         for (AD ad1 : ad) {
             if (ad1.getOuther().getPhoneNumber().equals(phoneNumber) && ad1.getOuther().getPassword().equals(password)){
-                return (List<AD>) object;
+                ads.add(ad1);
             }
         }
-        return null;
+        return ads;
     }
 }

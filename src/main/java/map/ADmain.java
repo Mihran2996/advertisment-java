@@ -191,12 +191,12 @@ public class ADmain implements Comands {
             XSSFWorkbook workbook = new XSSFWorkbook(xlsxpath);
             Sheet sheet = workbook.getSheetAt(0);
             int lastRow = sheet.getLastRowNum();
-            for (int i = 1; i < lastRow; i++) {
+            for (int i = 1; i <=lastRow; i++) {
                 Row row = sheet.getRow(i);
-                String title = row.getCell(0).getStringCellValue();
-                String text = row.getCell(1).getStringCellValue();
-                int price = Double.valueOf(row.getCell(2).getNumericCellValue()).intValue();
-                Category category = Category.valueOf(row.getCell(3).getStringCellValue());
+                String title = row.getCell(1).getStringCellValue();
+                String text = row.getCell(2).getStringCellValue();
+                int price = Double.valueOf(row.getCell(3).getNumericCellValue()).intValue();
+                Category category = Category.valueOf(row.getCell(4).getStringCellValue());
                 AD ads = new AD();
                 ads.setOuther(currentUser);
                 ads.setCategory(category);

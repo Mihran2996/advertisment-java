@@ -19,36 +19,33 @@ public class DataStorage {
     List<AD> ads = new ArrayList<>();
 
     public void exportItem(String phoneNumber, String password) throws IOException, ClassNotFoundException {
-        List<AD> ads1 = FileUtil.exportItem(phoneNumber, password, ads);
+        List<AD> ads1 = FileUtil.getItem(phoneNumber, password, ads);
         if (ads1 != null) {
             XSSFWorkbook workbook = new XSSFWorkbook();
             Sheet sheet = workbook.createSheet("Example");
-            Row row1=sheet.createRow(0);
+            Row row1 = sheet.createRow(0);
             row1.createCell(0).setCellValue("ID");
             row1.createCell(1).setCellValue("TITLE");
             row1.createCell(2).setCellValue("TEXT");
             row1.createCell(3).setCellValue("PRICE");
-            row1.createCell(4).setCellValue("DATE");
-            row1.createCell(5).setCellValue("CATEGORY");
+            row1.createCell(4).setCellValue("CATEGORY");
+            row1.createCell(5).setCellValue("DATE");
             row1.createCell(6).setCellValue("USER");
-            for (int i = 1; i < ads1.size(); i++) {
-                for (AD ad : ads1) {
-                    Row row = sheet.createRow(i);
-                    row.createCell(0).setCellValue(ad.getId());
-                    row.createCell(1).setCellValue(ad.getTitle());
-                    row.createCell(2).setCellValue(ad.getText());
-                    row.createCell(3).setCellValue(ad.getPrice());
-                    row.createCell(4).setCellValue(ad.getDate());
-                    row.createCell(5).setCellValue(String.valueOf(ad.getCategory()));
-                    row.createCell(6).setCellValue(ad.getOuther().toString());
-                    break;
+            Outer: for (int i = 1; i <=ads1.size(); i++) {
+                Row row = sheet.createRow(i);
+                for (int j = i-1; j <i; j++) {
+                    row.createCell(0).setCellValue(ads1.get(j).getId());
+                    row.createCell(1).setCellValue(ads1.get(j).getTitle());
+                    row.createCell(2).setCellValue(ads1.get(j).getText());
+                    row.createCell(3).setCellValue(ads1.get(j).getPrice());
+                    row.createCell(4).setCellValue(String.valueOf(ads1.get(j).getCategory()));
+                    row.createCell(5).setCellValue(ads1.get(j).getDate());
+                    row.createCell(6).setCellValue(ads1.get(j).getOuther().toString());
                 }
             }
-            FileOutputStream file=new FileOutputStream("C:\\Users\\MIHRAN\\advertisment-java\\src\\main\\resources\\14.xlsx" );
+            FileOutputStream file = new FileOutputStream("C:\\Users\\MIHRAN\\Advertisment\\src\\main\\resources\\54.xlsx");
             workbook.write(file);
             file.close();
-
-
         } else {
             System.out.println("This User Item is empty!");
         }
